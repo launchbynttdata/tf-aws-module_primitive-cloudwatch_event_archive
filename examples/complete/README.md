@@ -6,37 +6,37 @@ This example creates an EventBridge event bus and an event archive that archives
 
 ```hcl
 data "aws_region" "current" {}
-data "aws_caller_identity" "current" {}
 
 module "resource_names" {
-  source   = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
-  version  = "~> 2.0"
+  source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
+  version = "~> 2.0"
 
   for_each = var.resource_names_map
 
   logical_product_family  = var.logical_product_family
   logical_product_service = var.logical_product_service
   class_env               = var.class_env
-  instance_env             = var.instance_env
-  instance_resource       = var.instance_resource
-  cloud_resource_type     = each.value.name
-  maximum_length          = each.value.max_length
+  instance_env            = var.instance_env
+  instance_resource      = var.instance_resource
+  cloud_resource_type    = each.value.name
+  maximum_length         = each.value.max_length
 
   region = join("", split("-", data.aws_region.current.name))
 }
 
 resource "aws_cloudwatch_event_bus" "bus" {
   name = module.resource_names["event_bus"].standard
+  tags = {}
 }
 
 module "archive" {
   source = "../.."
 
-  name               = module.resource_names["event_archive"].minimal_random_suffix
-  event_source_arn   = aws_cloudwatch_event_bus.bus.arn
-  description    = var.description
-  event_pattern  = var.event_pattern
-  retention_days = var.retention_days
+  name             = module.resource_names["event_archive"].minimal_random_suffix
+  event_source_arn = aws_cloudwatch_event_bus.bus.arn
+  description      = var.description
+  event_pattern    = var.event_pattern
+  retention_days   = var.retention_days
 }
 ```
 

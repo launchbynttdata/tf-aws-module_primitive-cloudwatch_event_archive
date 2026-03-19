@@ -11,9 +11,10 @@
 // limitations under the License.
 
 resource "aws_cloudwatch_event_archive" "archive" {
-  name             = var.name
-  event_source_arn = var.event_source_arn
-  description      = var.description
-  event_pattern    = var.event_pattern
-  retention_days   = var.retention_days
+  name               = var.name
+  event_source_arn   = var.event_source_arn
+  description        = var.description
+  event_pattern      = var.event_pattern
+  retention_days     = var.retention_days
+  kms_key_identifier = var.kms_key_identifier
 }

@@ -32,8 +32,9 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 		retentionDays := terraform.Output(t, opts, "retention_days")
 
 		assert.Equal(t, name, id, "id should equal name for EventBridge archive")
-		assert.Contains(t, arn, "events", "ARN should contain events")
-		assert.Contains(t, eventSourceArn, "events", "event_source_arn should contain events")
+		assert.Regexp(t, `^arn:aws:events:.*:archive/`, arn, "ARN should match EventBridge archive format")
+		assert.Contains(t, arn, name, "ARN should contain archive name")
+		assert.Regexp(t, `^arn:aws:events:.*:event-bus/`, eventSourceArn, "event_source_arn should match EventBridge event-bus format")
 		assert.Equal(t, "7", retentionDays, "retention_days should be 7")
 	})
 
