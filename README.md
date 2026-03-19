@@ -47,23 +47,23 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_name"></a> [name](#input\_name) | Name of the EventBridge event archive. Must be unique per account and region. Maximum 48 characters. | `string` | n/a | yes |
+| <a name="input_event_source_arn"></a> [event\_source\_arn](#input\_event\_source\_arn) | ARN of the event bus associated with the archive. Events from this bus are archived. | `string` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | Description for the archive. Maximum 512 characters. | `string` | `null` | no |
 | <a name="input_event_pattern"></a> [event\_pattern](#input\_event\_pattern) | Event pattern to filter events sent to the archive. JSON string. Archives all events if not specified. | `string` | `null` | no |
-| <a name="input_event_source_arn"></a> [event\_source\_arn](#input\_event\_source\_arn) | ARN of the event bus associated with the archive. Events from this bus are archived. | `string` | n/a | yes |
-| <a name="input_kms_key_identifier"></a> [kms\_key\_identifier](#input\_kms\_key\_identifier) | The ARN, Key ID, or alias of the KMS key EventBridge uses to encrypt the archive. Omit to use the AWS owned key. | `string` | `null` | no |
-| <a name="input_name"></a> [name](#input\_name) | Name of the EventBridge event archive. Must be unique per account and region. Maximum 48 characters. | `string` | n/a | yes |
 | <a name="input_retention_days"></a> [retention\_days](#input\_retention\_days) | Maximum number of days to retain events in the archive. Omit for indefinite retention. | `number` | `null` | no |
+| <a name="input_kms_key_identifier"></a> [kms\_key\_identifier](#input\_kms\_key\_identifier) | The ARN, Key ID, or alias of the KMS key EventBridge uses to encrypt the archive. Omit to use the AWS owned key. | `string` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| <a name="output_id"></a> [id](#output\_id) | The ID of the archive (same as the name). |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the archive. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the archive. |
+| <a name="output_event_source_arn"></a> [event\_source\_arn](#output\_event\_source\_arn) | The ARN of the event bus associated with the archive. |
 | <a name="output_description"></a> [description](#output\_description) | The description of the archive. |
 | <a name="output_event_pattern"></a> [event\_pattern](#output\_event\_pattern) | The event pattern used to filter events sent to the archive. |
-| <a name="output_event_source_arn"></a> [event\_source\_arn](#output\_event\_source\_arn) | The ARN of the event bus associated with the archive. |
-| <a name="output_id"></a> [id](#output\_id) | The ID of the archive (same as the name). |
-| <a name="output_kms_key_identifier"></a> [kms\_key\_identifier](#output\_kms\_key\_identifier) | The ARN or identifier of the KMS key used to encrypt the archive. |
-| <a name="output_name"></a> [name](#output\_name) | The name of the archive. |
 | <a name="output_retention_days"></a> [retention\_days](#output\_retention\_days) | The number of days events are retained in the archive. |
+| <a name="output_kms_key_identifier"></a> [kms\_key\_identifier](#output\_kms\_key\_identifier) | The ARN or identifier of the KMS key used to encrypt the archive. |
 <!-- END_TF_DOCS -->

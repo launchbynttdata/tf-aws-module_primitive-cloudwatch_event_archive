@@ -47,5 +47,5 @@ output "retention_days" {
 
 output "kms_key_identifier" {
   description = "The ARN or identifier of the KMS key used to encrypt the archive."
-  value       = aws_cloudwatch_event_archive.archive.kms_key_identifier
+  value       = aws_cloudwatch_event_archive.archive.kms_key_identifier != null ? aws_cloudwatch_event_archive.archive.kms_key_identifier : ""
 }
