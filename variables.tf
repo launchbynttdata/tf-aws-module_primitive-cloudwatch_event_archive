@@ -60,9 +60,3 @@ variable "retention_days" {
     error_message = "Retention days must be 0 or greater."
   }
 }
-
-variable "kms_key_identifier" {
-  description = "The ARN, Key ID, or alias of the KMS key EventBridge uses to encrypt the archive. Omit to use the AWS owned key."
-  type        = string
-  default     = null
-}

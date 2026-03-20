@@ -49,8 +49,3 @@ output "retention_days" {
   description = "The number of days events are retained in the archive."
   value       = module.archive.retention_days
 }
-
-output "kms_key_identifier" {
-  description = "The ARN or identifier of the KMS key used to encrypt the archive."
-  value       = module.archive.kms_key_identifier
-}
