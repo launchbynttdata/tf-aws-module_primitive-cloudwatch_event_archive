@@ -25,11 +25,11 @@ func getEventBridgeClient(t *testing.T, region string) *eventbridge.Client {
 func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 	t.Run("VerifyTerraformOutputs", func(t *testing.T) {
 		opts := ctx.TerratestTerraformOptions()
-		id := terraform.Output(t, opts, "id")
-		name := terraform.Output(t, opts, "name")
-		arn := terraform.Output(t, opts, "arn")
-		eventSourceArn := terraform.Output(t, opts, "event_source_arn")
-		retentionDays := terraform.Output(t, opts, "retention_days")
+		id := terraform.OutputContext(t, context.Background(), opts, "id")
+		name := terraform.OutputContext(t, context.Background(), opts, "name")
+		arn := terraform.OutputContext(t, context.Background(), opts, "arn")
+		eventSourceArn := terraform.OutputContext(t, context.Background(), opts, "event_source_arn")
+		retentionDays := terraform.OutputContext(t, context.Background(), opts, "retention_days")
 
 		assert.Equal(t, name, id, "id should equal name for EventBridge archive")
 		assert.Regexp(t, `^arn:aws:events:.*:archive/`, arn, "ARN should match EventBridge archive format")
@@ -40,8 +40,8 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 
 	t.Run("VerifyArchiveViaAPI", func(t *testing.T) {
 		opts := ctx.TerratestTerraformOptions()
-		archiveName := terraform.Output(t, opts, "name")
-		region := terraform.Output(t, opts, "region")
+		archiveName := terraform.OutputContext(t, context.Background(), opts, "name")
+		region := terraform.OutputContext(t, context.Background(), opts, "region")
 		expectedRetention := int32(7)
 		expectedDescription := "Example EventBridge archive for testing"
 
@@ -73,8 +73,8 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 
 	t.Run("PutEventAndVerifyArchiveReceivesIt", func(t *testing.T) {
 		opts := ctx.TerratestTerraformOptions()
-		eventSourceArn := terraform.Output(t, opts, "event_source_arn")
-		region := terraform.Output(t, opts, "region")
+		eventSourceArn := terraform.OutputContext(t, context.Background(), opts, "event_source_arn")
+		region := terraform.OutputContext(t, context.Background(), opts, "region")
 
 		client := getEventBridgeClient(t, region)
 
@@ -95,16 +95,16 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 func TestComposableCompleteReadOnly(t *testing.T, ctx types.TestContext) {
 	t.Run("VerifyTerraformOutputs", func(t *testing.T) {
 		opts := ctx.TerratestTerraformOptions()
-		id := terraform.Output(t, opts, "id")
-		name := terraform.Output(t, opts, "name")
+		id := terraform.OutputContext(t, context.Background(), opts, "id")
+		name := terraform.OutputContext(t, context.Background(), opts, "name")
 
 		assert.Equal(t, name, id, "id should equal name for EventBridge archive")
 	})
 
 	t.Run("VerifyArchiveExistsViaAPI", func(t *testing.T) {
 		opts := ctx.TerratestTerraformOptions()
-		archiveName := terraform.Output(t, opts, "name")
-		region := terraform.Output(t, opts, "region")
+		archiveName := terraform.OutputContext(t, context.Background(), opts, "name")
+		region := terraform.OutputContext(t, context.Background(), opts, "region")
 
 		client := getEventBridgeClient(t, region)
 
